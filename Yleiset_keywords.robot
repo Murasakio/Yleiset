@@ -3,8 +3,8 @@ Library     SeleniumLibrary
 
 *** Keywords ***
 
-Luo Webdriver Asetuksilla
-    [Arguments]    ${LINKKI}    ${SELAIN}    ${SEL_SPEED}=0.3    ${SEL_TIMEOUT}=3    ${INCOGNITO}=False
+Luo Webdriver
+    [Arguments]    ${SELAIN}    ${INCOGNITO}
     # Luodaan webdriver halutulle selaimella, halutuilla asetuksilla
     IF    "${SELAIN}" == "Chrome"
         ${options}    Evaluate    selenium.webdriver.ChromeOptions()
@@ -22,7 +22,14 @@ Luo Webdriver Asetuksilla
         Create WebDriver    Firefox    options=${options}
         Maximize Browser Window
     END
-    
+
+Aseta Selenium Ajat
+    [Arguments]    ${SEL_SPEED}=0.3    ${SEL_TIMEOUT}=3
     # Asetetaan testin suoritusnopeus ja avainsanojen odotusaika
     Set Selenium Speed           ${SEL_SPEED}
     Set Selenium Timeout         ${SEL_TIMEOUT}
+
+Avaa Selain Sivulle
+    [Arguments]    ${LINKKI}    ${SELAIN}    ${INCOGNITO}=False
+    Luo Webdriver    ${SELAIN}    ${INCOGNITO}
+    Go To    ${LINKKI}
