@@ -1,3 +1,4 @@
 reports/
 *.log
 output.xml
+*.pyc
